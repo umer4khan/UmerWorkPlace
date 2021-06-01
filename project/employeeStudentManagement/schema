@@ -1,0 +1,73 @@
+const mongoose = require("mongoose");
+//const jwt = require("jsonwebtoken");
+const studentSchema = mongoose.Schema({
+  Date: {
+    type: Number,
+    required: true,
+  },
+  studentId: {
+    type: Number,
+    required: true,
+    unique: true,
+    trim: true,
+  },
+  fullName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  Address: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  UID: {
+    type: Number,
+    required: true,
+    trim: true,
+  },
+  course: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  totalFees: {
+    type: Number,
+    unique: true,
+    required: true,
+    trim: true,
+  },
+  paidFess: {
+    type: Number,
+    unique: true,
+    required: true,
+    trim: true,
+  },
+  remainingFees: {
+    type: Number,
+    unique: true,
+    required: true,
+    trim: true,
+  },
+  courseDuration: {
+    type: Number,
+    unique: true,
+    required: true,
+    trim: true,
+  },
+  joiningDate: {
+    type: Number,
+    unique: true,
+    required: true,
+    trim: true,
+  },
+  certificate: {
+    type: String,
+    unique: true,
+    required: true,
+    trim: true,
+  },
+});
+
+const StudentDetails = mongoose.model("StudentDetails", studentSchema);
+module.exports = StudentDetails;

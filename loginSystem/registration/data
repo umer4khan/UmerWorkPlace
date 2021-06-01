@@ -1,0 +1,61 @@
+Notice I used
+
+isLength()
+isEmail()
+isNumeric()
+There are many more of these methods, all coming from validator.js, including:
+
+contains(), check if value contains the specified value
+equals(), check if value equals the specified value
+isAlpha()
+isAlphanumeric()
+isAscii()
+isBase64()
+isBoolean()
+isCurrency()
+isDecimal()
+isEmpty()
+isFQDN(), is a fully qualified domain name?
+isFloat()
+isHash()
+isHexColor()
+isIP()
+isIn(), check if the value is in an array of allowed values
+isInt()
+isJSON()
+isLatLong()
+isLength()
+isLowercase()
+isMobilePhone()
+isNumeric()
+isPostalCode()
+isURL()
+isUppercase()
+isWhitelisted(), checks the input against a whitelist of allowed characters
+You can validate the input against a regular expression using matches().
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// app.get("/abc",(req,res)=>{
+//     res.render("registration")
+// })
+// app.post("/abc",async(req,res)=>{
+//     try{
+//     res.send(req.body)
+//     console.log(req.body)
+// }catch(err){
+//     res.send(err)
+//     console.log(err)
+// }})

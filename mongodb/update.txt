@@ -1,0 +1,241 @@
+Microsoft Windows [Version 6.1.7601]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+C:\Users\ISEES>mongo
+MongoDB shell version v4.2.12
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("448d8540-dca6-4c8a-b80b-25ce377643a9") }
+MongoDB server version: 4.2.12
+Server has startup warnings:
+2021-02-02T11:43:20.884+0530 I  CONTROL  [initandlisten]
+2021-02-02T11:43:20.884+0530 I  CONTROL  [initandlisten] ** WARNING: Access control is not ena
+bled for the database.
+2021-02-02T11:43:20.884+0530 I  CONTROL  [initandlisten] **          Read and write access to
+data and configuration is unrestricted.
+2021-02-02T11:43:20.885+0530 I  CONTROL  [initandlisten]
+---
+Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+
+and anyone you share the URL with. MongoDB may use this information to make product
+improvements and to suggest MongoDB products and deployment options to you.
+
+To enable free monitoring, run the following command: db.enableFreeMonitoring()
+To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+
+> show dbs
+admin           0.000GB
+config          0.000GB
+first_database  0.000GB
+local           0.000GB
+login           0.000GB
+> use login
+switched to db login
+> db.data.find()
+{ "_id" : ObjectId("6017d97d2948d0f6b7f0ecbf"), "user_name" : "umer", "password" : "umer123" }
+
+{ "_id" : ObjectId("6017da442948d0f6b7f0ecc0"), "user_name" : "faizan", "password" : "faizan12
+3" }
+{ "_id" : ObjectId("6017da442948d0f6b7f0ecc1"), "user_name" : "prathmesh", "password" : "pr123
+" }
+> db.data.find().pretty()
+{
+        "_id" : ObjectId("6017d97d2948d0f6b7f0ecbf"),
+        "user_name" : "umer",
+        "password" : "umer123"
+}
+{
+        "_id" : ObjectId("6017da442948d0f6b7f0ecc0"),
+        "user_name" : "faizan",
+        "password" : "faizan123"
+}
+{
+        "_id" : ObjectId("6017da442948d0f6b7f0ecc1"),
+        "user_name" : "prathmesh",
+        "password" : "pr123"
+}
+> db.data.find(username:"umer").pretty()
+2021-02-02T11:47:03.076+0530 E  QUERY    [js] uncaught exception: SyntaxError: missing ) after
+ argument list :
+@(shell):1:21
+> db.data.find({username:"umer"}).pretty()
+> db.data.find({username:"umer"})
+> db.data.find({user_name:"umer"})
+{ "_id" : ObjectId("6017d97d2948d0f6b7f0ecbf"), "user_name" : "umer", "password" : "umer123" }
+
+> db.data.find({user_name:"umer"}).pretty
+function() {
+    this._prettyShell = true;
+    return this;
+}
+> db.data.find({user_name:"umer"}).pretty()
+{
+        "_id" : ObjectId("6017d97d2948d0f6b7f0ecbf"),
+        "user_name" : "umer",
+        "password" : "umer123"
+}
+> db.data.find({user_name:"umer"},{id:0}).pretty()
+{
+        "_id" : ObjectId("6017d97d2948d0f6b7f0ecbf"),
+        "user_name" : "umer",
+        "password" : "umer123"
+}
+> db.data.find({user_name:"umer"},{name:1}).pretty()
+{ "_id" : ObjectId("6017d97d2948d0f6b7f0ecbf") }
+> db.data.find({user_name:"umer"},{id:0,name:1}).pretty()
+Error: error: {
+        "ok" : 0,
+        "errmsg" : "Projection cannot have a mix of inclusion and exclusion.",
+        "code" : 2,
+        "codeName" : "BadValue"
+}
+> db.data.find({user_name:"umer"},{_id:0,name:1}).pretty()
+{ }
+> db.data.find({user_name:"umer"},{name:2}).pretty()
+{ "_id" : ObjectId("6017d97d2948d0f6b7f0ecbf") }
+> db.data.find({user_name:"umer"},{name:0}).pretty()
+{
+        "_id" : ObjectId("6017d97d2948d0f6b7f0ecbf"),
+        "user_name" : "umer",
+        "password" : "umer123"
+}
+> db.data.find({user_name:"umer"},{user_name:1}).pretty()
+{ "_id" : ObjectId("6017d97d2948d0f6b7f0ecbf"), "user_name" : "umer" }
+> db.data.find({user_name:"umer"},{_id:0,user_name:1}).pretty()
+{ "user_name" : "umer" }
+> db.data.find({user_name:"umer"}).pretty().limit(1)
+{
+        "_id" : ObjectId("6017d97d2948d0f6b7f0ecbf"),
+        "user_name" : "umer",
+        "password" : "umer123"
+}
+> db.data.find({user_name:"umer"}).pretty().limit(1).skip(1)
+> db.data.find({user_name:"umer"}).pretty().limit(1).skip(0)
+{
+        "_id" : ObjectId("6017d97d2948d0f6b7f0ecbf"),
+        "user_name" : "umer",
+        "password" : "umer123"
+}
+> db.data.find({user_name}).pretty().limit(1).skip(0)
+2021-02-02T11:57:14.005+0530 E  QUERY    [js] uncaught exception: ReferenceError: user_name is
+ not defined :
+@(shell):1:15
+> use first_database
+switched to db first_database
+> show collections
+data
+first_database
+> db.data.find()
+{ "_id" : ObjectId("60165cb335e46777987a9f27"), "name" : "umer", "type" : "front end", "vidios
+" : 80, "active" : true }
+> db.first_database.find()
+{ "_id" : ObjectId("60165b4a35e46777987a9f26"), "name" : "umer", "type" : "front end", "vidios
+" : 80, "active" : true }
+{ "_id" : ObjectId("60168f7435e46777987a9f28"), "name" : "aniket", "type" : "front end", "vidi
+os" : 80, "active" : true }
+{ "_id" : ObjectId("60168f7435e46777987a9f29"), "name" : "faizan", "type" : "front end", "vidi
+os" : 80, "active" : true }
+{ "_id" : ObjectId("60168f7435e46777987a9f2a"), "name" : "asad", "type" : "front end", "vidios
+" : 80, "active" : true }
+> db.first_database.find().pretty()
+{
+        "_id" : ObjectId("60165b4a35e46777987a9f26"),
+        "name" : "umer",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f28"),
+        "name" : "aniket",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f29"),
+        "name" : "faizan",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f2a"),
+        "name" : "asad",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+> db.first_database.updateOne({name:"asad"},{$set:{type:"Full Stack"}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.first_database.find().pretty()
+{
+        "_id" : ObjectId("60165b4a35e46777987a9f26"),
+        "name" : "umer",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f28"),
+        "name" : "aniket",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f29"),
+        "name" : "faizan",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f2a"),
+        "name" : "asad",
+        "type" : "Full Stack",
+        "vidios" : 80,
+        "active" : true
+}
+> db.first_database.updateMany({type:"Full Stack"},{$set{active:false}})
+2021-02-02T12:45:23.079+0530 E  QUERY    [js] uncaught exception: SyntaxError: missing : after
+ property id :
+@(shell):1:54
+> db.first_database.updateMany({type:"front end"},{$set{active:false}})
+2021-02-02T12:46:31.330+0530 E  QUERY    [js] uncaught exception: SyntaxError: missing : after
+ property id :
+@(shell):1:53
+> db.first_database.updateMany({type:"front end"},{$set:{active:false}})
+{ "acknowledged" : true, "matchedCount" : 3, "modifiedCount" : 3 }
+> db.first_database.find().pretty()
+{
+        "_id" : ObjectId("60165b4a35e46777987a9f26"),
+        "name" : "umer",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : false
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f28"),
+        "name" : "aniket",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : false
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f29"),
+        "name" : "faizan",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : false
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f2a"),
+        "name" : "asad",
+        "type" : "Full Stack",
+        "vidios" : 80,
+        "active" : true
+}

@@ -1,0 +1,442 @@
+
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+C:\Users\ISEES>mongo
+MongoDB shell version v4.2.12
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("cae7a78e-94ec-4618-b247-6b8c4f400ab8") }
+MongoDB server version: 4.2.12
+Server has startup warnings:
+2021-01-31T12:04:24.972+0530 I  CONTROL  [initandlisten]
+2021-01-31T12:04:24.972+0530 I  CONTROL  [initandlisten] ** WARNING: Access control is not ena
+bled for the database.
+2021-01-31T12:04:24.972+0530 I  CONTROL  [initandlisten] **          Read and write access to
+data and configuration is unrestricted.
+2021-01-31T12:04:24.973+0530 I  CONTROL  [initandlisten]
+---
+Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+
+and anyone you share the URL with. MongoDB may use this information to make product
+improvements and to suggest MongoDB products and deployment options to you.
+
+To enable free monitoring, run the following command: db.enableFreeMonitoring()
+To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+
+> use first_database
+switched to db first_database
+> db.first_database.insertOne({name:"umer",type:"front end",vidios:80,active:true})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("60165b4a35e46777987a9f26")
+}
+> show dbs
+admin           0.000GB
+config          0.000GB
+first_database  0.000GB
+local           0.000GB
+> db
+first_database
+> show collections
+first_database
+> db.first_database.find
+function(query, fields, limit, skip, batchSize, options) {
+    var cursor = new DBQuery(this._mongo,
+                             this._db,
+                             this,
+                             this._fullName,
+                             this._massageObject(query),
+                             fields,
+                             limit,
+                             skip,
+                             batchSize,
+                             options || this.getQueryOptions());
+
+    {
+        const session = this.getDB().getSession();
+
+        const readPreference = session._getSessionAwareClient().getReadPreference(session);
+        if (readPreference !== null) {
+            cursor.readPref(readPreference.mode, readPreference.tags);
+        }
+
+        const readConcern = session._getSessionAwareClient().getReadConcern(session);
+        if (readConcern !== null) {
+            cursor.readConcern(readConcern.level);
+        }
+    }
+
+    return cursor;
+}
+> db.first_database.find()
+{ "_id" : ObjectId("60165b4a35e46777987a9f26"), "name" : "umer", "type" : "front end", "vidios
+" : 80, "active" : true }
+> db.data.insertOne({name:"umer",type:"front end",vidios:80,active:true})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("60165cb335e46777987a9f27")
+}
+> show collections
+data
+first_database
+> db.data.find()
+{ "_id" : ObjectId("60165cb335e46777987a9f27"), "name" : "umer", "type" : "front end", "vidios
+" : 80, "active" : true }
+> db.data.find().pretty()
+{
+        "_id" : ObjectId("60165cb335e46777987a9f27"),
+        "name" : "umer",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+> db.first_database.insertMany([{name:"aniket",type:"front end",vidios:80,active:true},{name:"
+faizan",type:"front end",vidios:80,active:true},{name:"asad",type:"front end",vidios:80,active
+:true});
+...
+...
+> db.first_database.insertMany([{name:"aniket",type:"front end",vidios:80,active:true},{name:"
+faizan",type:"front end",vidios:80,active:true},{name:"asad",type:"front end",vidios:80,active
+
+... :true}]);
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("60168f7435e46777987a9f28"),
+                ObjectId("60168f7435e46777987a9f29"),
+                ObjectId("60168f7435e46777987a9f2a")
+        ]
+}
+> db.first_database.find().pretty()
+{
+        "_id" : ObjectId("60165b4a35e46777987a9f26"),
+        "name" : "umer",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f28"),
+        "name" : "aniket",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f29"),
+        "name" : "faizan",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f2a"),
+        "name" : "asad",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+
+
+> use first_database
+switched to db first_database
+> db.data.find().pretty()
+{
+        "_id" : ObjectId("60165cb335e46777987a9f27"),
+        "name" : "umer",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+> db.first_database.find().pretty()
+{
+        "_id" : ObjectId("60165b4a35e46777987a9f26"),
+        "name" : "umer",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f28"),
+        "name" : "aniket",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f29"),
+        "name" : "faizan",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f2a"),
+        "name" : "asad",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+> show dbs
+admin           0.000GB
+config          0.000GB
+first_database  0.000GB
+local           0.000GB
+> dbs.current
+2021-02-01T12:10:31.302+0530 E  QUERY    [js] uncaught exception: ReferenceError: dbs is not d
+efined :
+@(shell):1:1
+> db
+first_database
+> show collections
+data
+first_database
+> db.first_database.find()
+{ "_id" : ObjectId("60165b4a35e46777987a9f26"), "name" : "umer", "type" : "front end", "vidios
+" : 80, "active" : true }
+{ "_id" : ObjectId("60168f7435e46777987a9f28"), "name" : "aniket", "type" : "front end", "vidi
+os" : 80, "active" : true }
+{ "_id" : ObjectId("60168f7435e46777987a9f29"), "name" : "faizan", "type" : "front end", "vidi
+os" : 80, "active" : true }
+{ "_id" : ObjectId("60168f7435e46777987a9f2a"), "name" : "asad", "type" : "front end", "vidios
+" : 80, "active" : true }
+> db.first_database.find().pretty()
+{
+        "_id" : ObjectId("60165b4a35e46777987a9f26"),
+        "name" : "umer",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f28"),
+        "name" : "aniket",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f29"),
+        "name" : "faizan",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f2a"),
+        "name" : "asad",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+> db.first_database.find(name:"umer").pretty()
+2021-02-01T12:53:33.178+0530 E  QUERY    [js] uncaught exception: SyntaxError: missing ) after
+ argument list :
+@(shell):1:27
+> db.first_database.find({name:"umer"}).pretty()
+{
+        "_id" : ObjectId("60165b4a35e46777987a9f26"),
+        "name" : "umer",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+> db.first_database.find({name:"umer"},{name:1}).pretty()
+{ "_id" : ObjectId("60165b4a35e46777987a9f26"), "name" : "umer" }
+> db.first_database.find({name:"umer"},{id:0,name:1}).pretty()
+Error: error: {
+        "ok" : 0,
+        "errmsg" : "Projection cannot have a mix of inclusion and exclusion.",
+        "code" : 2,
+        "codeName" : "BadValue"
+}
+> db.first_database.find({name:"umer"},{_id:0,name:1}).pretty()
+{ "name" : "umer" }
+> db.first_database.find({name:"umer"},{name:0}).pretty()
+{
+        "_id" : ObjectId("60165b4a35e46777987a9f26"),
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+> db.first_database.find({name:"umer"},{name:2}).pretty()
+{ "_id" : ObjectId("60165b4a35e46777987a9f26"), "name" : "umer" }
+> db.first_database.find({name:"umer"},{name:9}).pretty()
+{ "_id" : ObjectId("60165b4a35e46777987a9f26"), "name" : "umer" }
+> db.first_database.find({name:"umer"},{name:1}).pretty()
+{ "_id" : ObjectId("60165b4a35e46777987a9f26"), "name" : "umer" }
+> db.first_database.find({name:"umer"},{_id:0,name:1}).pretty()
+{ "name" : "umer" }
+> db.first_database.find({active:true}).pretty()
+{
+        "_id" : ObjectId("60165b4a35e46777987a9f26"),
+        "name" : "umer",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f28"),
+        "name" : "aniket",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f29"),
+        "name" : "faizan",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f2a"),
+        "name" : "asad",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+> db.first_database.find({active:true}).pretty().limit(1)
+{
+        "_id" : ObjectId("60165b4a35e46777987a9f26"),
+        "name" : "umer",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+> db.first_database.find({active:true}).pretty().limit(2)
+{
+        "_id" : ObjectId("60165b4a35e46777987a9f26"),
+        "name" : "umer",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f28"),
+        "name" : "aniket",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+> db.first_database.find({active:true}).pretty().limit(3)
+{
+        "_id" : ObjectId("60165b4a35e46777987a9f26"),
+        "name" : "umer",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f28"),
+        "name" : "aniket",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f29"),
+        "name" : "faizan",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+> db.first_database.find({active:true}).pretty().limit(4)
+{
+        "_id" : ObjectId("60165b4a35e46777987a9f26"),
+        "name" : "umer",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f28"),
+        "name" : "aniket",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f29"),
+        "name" : "faizan",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f2a"),
+        "name" : "asad",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+> db.first_database.find({active:true}).pretty().limit(5)
+{
+        "_id" : ObjectId("60165b4a35e46777987a9f26"),
+        "name" : "umer",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f28"),
+        "name" : "aniket",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f29"),
+        "name" : "faizan",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("60168f7435e46777987a9f2a"),
+        "name" : "asad",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+> db.first_database.findOne({active:true}).pretty()
+2021-02-01T13:09:57.852+0530 E  QUERY    [js] uncaught exception: TypeError: db.first_database
+.findOne(...).pretty is not a function :
+@(shell):1:1
+> db.first_database.findOne({active:true})
+{
+        "_id" : ObjectId("60165b4a35e46777987a9f26"),
+        "name" : "umer",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+> db.first_database.find({active:true}).pretty().limit(1).skip(1)
+{
+        "_id" : ObjectId("60168f7435e46777987a9f28"),
+        "name" : "aniket",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+> db.first_database.find({active:true}).pretty().limit(1).skip(2)
+{
+        "_id" : ObjectId("60168f7435e46777987a9f29"),
+        "name" : "faizan",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+> db.first_database.find({active:true}).pretty().limit(1).skip(3)
+{
+        "_id" : ObjectId("60168f7435e46777987a9f2a"),
+        "name" : "asad",
+        "type" : "front end",
+        "vidios" : 80,
+        "active" : true
+}
+> db.first_database.find({active:true}).pretty().limit(1).skip(4)
+>
